@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeStack | Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="auth-page">
+    <div class="auth-wrapper">
+      <div class="auth-hero">
+        <div class="brand">
+          <div class="logo-dot"></div>
+          <div>
+            <h1>LifeStack</h1>
+            <p>Stay on top of your day.</p>
+          </div>
+        </div>
+        <ul class="auth-features">
+          <li>Track tasks, habits, money, and events</li>
+          <li>Clean dashboard with quick actions</li>
+          <li>Secure JWT-based login</li>
+        </ul>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="tab-button active" data-tab="login">Login</button>
+          <button class="tab-button" data-tab="register">Register</button>
+        </div>
+
+        <div id="auth-error" class="form-message error hidden"></div>
+
+        <form id="login-form" class="auth-form">
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" placeholder="••••••••" required />
+          </label>
+          <button type="submit" class="primary-button">Login</button>
+        </form>
+
+        <form id="register-form" class="auth-form hidden">
+          <label>
+            Full Name
+            <input type="text" name="name" placeholder="Your name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" placeholder="Create a password" required />
+          </label>
+          <button type="submit" class="primary-button">Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+  </body>
+</html>
