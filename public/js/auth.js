@@ -1,5 +1,3 @@
-const API_BASE = "http://localhost:5000";
-
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
 const tabButtons = document.querySelectorAll(".tab-button");
@@ -15,9 +13,12 @@ const clearError = () => {
   errorBox.classList.add("hidden");
 };
 
-const handleAuthSuccess = (token) => {
+const handleAuthSuccess = (token, user) => {
   localStorage.setItem("token", token);
-  window.location.href = "dashboard.html";
+  if (user) {
+    localStorage.setItem("user", JSON.stringify(user));
+  }
+  window.location.href = "main.html";
 };
 
 const toggleTab = (tab) => {
@@ -27,9 +28,17 @@ const toggleTab = (tab) => {
   clearError();
 };
 
+const getDefaultTab = () => {
+  const fromDataset = document.body.dataset.defaultTab;
+  const fromQuery = new URLSearchParams(window.location.search).get("tab");
+  return fromDataset || fromQuery || "login";
+};
+
 tabButtons.forEach((button) => {
   button.addEventListener("click", () => toggleTab(button.dataset.tab));
 });
+
+toggleTab(getDefaultTab());
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -42,7 +51,7 @@ loginForm.addEventListener("submit", async (event) => {
   };
 
   try {
-    const response = await fetch(`${API_BASE}/api/auth/login`, {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -53,7 +62,7 @@ loginForm.addEventListener("submit", async (event) => {
       throw new Error(data.message || "Login failed");
     }
 
-    handleAuthSuccess(data.token);
+    handleAuthSuccess(data.token, data.user);
   } catch (error) {
     showError(error.message);
   }
@@ -71,7 +80,7 @@ registerForm.addEventListener("submit", async (event) => {
   };
 
   try {
-    const response = await fetch(`${API_BASE}/api/auth/register`, {
+    const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -82,12 +91,12 @@ registerForm.addEventListener("submit", async (event) => {
       throw new Error(data.message || "Registration failed");
     }
 
-    handleAuthSuccess(data.token);
+    handleAuthSuccess(data.token, data.user);
   } catch (error) {
     showError(error.message);
   }
 });
 
 if (localStorage.getItem("token")) {
-  window.location.href = "dashboard.html";
+  window.location.href = "main.html";
 }

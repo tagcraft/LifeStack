@@ -41,28 +41,17 @@ const completeHabit = async (req, res) => {
     }
 
     const today = new Date();
-    const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}`;
 
-    let lastCompleted = habit.lastCompleted ? new Date(habit.lastCompleted) : null;
-    let startOfLastCompleted = lastCompleted
-      ? new Date(lastCompleted.getFullYear(), lastCompleted.getMonth(), lastCompleted.getDate())
-      : null;
-
-    if (!startOfLastCompleted) {
-      habit.streak = 1;
-    } else if (startOfLastCompleted.getTime() === startOfToday.getTime()) {
-      // already completed today; no streak change
-    } else {
-      const dayDiff = Math.round(
-        (startOfToday.getTime() - startOfLastCompleted.getTime()) / 86400000
-      );
-      if (dayDiff === 1) {
-        habit.streak = habit.streak + 1;
-      } else {
-        habit.streak = 1;
-      }
+    const history = habit.completionHistory || [];
+    if (history.includes(todayKey)) {
+      return res.status(409).json({ message: "Habit already completed today" });
     }
 
+    habit.completionHistory = [...history, todayKey];
     habit.lastCompleted = today;
     await habit.save();
     res.status(200).json(habit);

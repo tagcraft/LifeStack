@@ -3,47 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LifeStack | Login</title>
+    <title>LifeStack | Register</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="auth-page">
-    <div class="auth-wrapper">
-      <div class="auth-hero">
-        <div class="brand">
-          <div class="logo-dot"></div>
-          <div>
-            <h1>LifeStack</h1>
-            <p>Stay on top of your day.</p>
-          </div>
-        </div>
-        <ul class="auth-features">
-          <li>Track tasks, habits, money, and events</li>
-          <li>Clean dashboard with quick actions</li>
-          <li>Secure JWT-based login</li>
-        </ul>
-      </div>
+  <body class="auth-page" data-default-tab="register">
+    <main class="auth-shell">
+      <header class="auth-brand">
+        <h1>LifeStack</h1>
+        <p>Stay on top of your day.</p>
+      </header>
 
-      <div class="auth-card">
+      <section class="auth-card">
         <div class="auth-tabs">
-          <button class="tab-button active" data-tab="login">Login</button>
-          <button class="tab-button" data-tab="register">Register</button>
+          <button class="tab-button" data-tab="login">Login</button>
+          <button class="tab-button active" data-tab="register">Register</button>
         </div>
 
         <div id="auth-error" class="form-message error hidden"></div>
 
-        <form id="login-form" class="auth-form">
+        <form id="login-form" class="auth-form hidden">
           <label>
             Email
             <input type="email" name="email" placeholder="you@example.com" required />
           </label>
           <label>
             Password
-            <input type="password" name="password" placeholder="••••••••" required />
+            <input type="password" name="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required />
           </label>
           <button type="submit" class="primary-button">Login</button>
         </form>
 
-        <form id="register-form" class="auth-form hidden">
+        <form id="register-form" class="auth-form">
           <label>
             Full Name
             <input type="text" name="name" placeholder="Your name" required />
@@ -58,8 +48,8 @@
           </label>
           <button type="submit" class="primary-button">Create Account</button>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
 
     <script src="js/auth.js"></script>
   </body>

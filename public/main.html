@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeStack | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="dashboard-page">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo-dot"></div>
+          <div>
+            <h1>LifeStack</h1>
+            <p>Productivity Dashboard</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-button active" data-section="dashboard">Dashboard</button>
+          <button class="nav-button" data-section="todos">To-Do</button>
+          <button class="nav-button" data-section="habits">Habbit Tracker</button>
+          <button class="nav-button" data-section="money">Budget</button>
+          <button class="nav-button" data-section="planner">Monthly Planner</button>
+          <button id="logout-button" class="nav-button danger">Logout</button>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <section id="section-dashboard" class="content-section active">
+          <div class="dashboard-grid">
+            <div class="card dashboard-hero">
+              <div>
+                <h2 id="dashboard-greeting">Welcome back.</h2>
+                <p id="dashboard-date" class="muted"></p>
+              </div>
+              <div class="dashboard-actions">
+                <button class="ghost-button" data-action="todos">Add Task</button>
+                <button class="ghost-button" data-action="habits">Add Habit</button>
+                <button class="ghost-button" data-action="money">Add Expense</button>
+                <button class="ghost-button" data-action="planner">Add Event</button>
+              </div>
+            </div>
+
+            <div class="dashboard-column">
+              <div class="card dashboard-card">
+                <div class="card-title">Motivational Quote</div>
+                <div class="quote-card">
+                  <p id="dashboard-quote">
+                    Success is the sum of small efforts, repeated day in and day out.
+                  </p>
+                  <span id="dashboard-quote-author" class="muted">— Robert Collier</span>
+                </div>
+              </div>
+
+              <div class="card dashboard-card">
+                <div class="card-title">Today's Focus</div>
+                <div id="dashboard-todos" class="dashboard-list"></div>
+              </div>
+
+              <div class="card dashboard-card">
+                <div class="card-title">Habit Snapshot</div>
+                <div class="habit-snapshot">
+                  <div id="habit-stacked-bar" class="habit-stacked-bar" aria-label="Habit completions"></div>
+                  <div class="habit-chart-labels">
+                    <span>S</span>
+                    <span>M</span>
+                    <span>T</span>
+                    <span>W</span>
+                    <span>T</span>
+                    <span>F</span>
+                    <span>S</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-column">
+              <div class="card dashboard-card">
+                <div class="card-title">Upcoming Events</div>
+                <div id="dashboard-mini-calendar" class="mini-calendar"></div>
+                <div id="dashboard-upcoming-list" class="dashboard-list"></div>
+              </div>
+
+              <div class="card dashboard-card">
+                <div class="card-title">Budget Glance</div>
+                <div class="dashboard-budget">
+                  <div>
+                    <span class="stat-label">Total spent</span>
+                    <strong id="dashboard-budget-total">$0.00</strong>
+                  </div>
+                  <div>
+                    <span class="stat-label">Top category</span>
+                    <strong id="dashboard-budget-top">—</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-todos" class="content-section">
+          <div class="section-header">
+            <h2>To-Do</h2>
+            <p>Plan your day and track progress.</p>
+          </div>
+          <div class="card">
+            <form id="todo-form" class="inline-form">
+              <input type="text" name="title" placeholder="Add a new task" required />
+              <button type="submit" class="primary-button">Add</button>
+            </form>
+            <div id="todo-list" class="list"></div>
+          </div>
+        </section>
+
+        <section id="section-habits" class="content-section">
+          <div class="section-header">
+            <h2>Habbit Tracker</h2>
+            <p>Keep streaks alive with daily wins.</p>
+          </div>
+          <div class="card habits-card">
+            <form id="habit-form" class="inline-form habit-form">
+              <input type="text" name="name" placeholder="Habit name" required />
+              <input type="text" name="description" placeholder="Description (optional)" />
+              <button type="submit" class="primary-button">Add</button>
+            </form>
+            <div id="habit-list" class="habit-list"></div>
+          </div>
+        </section>
+
+        <section id="section-money" class="content-section">
+          <div class="section-header">
+            <h2>Budget</h2>
+            <p>Track spending and see category distribution.</p>
+          </div>
+          <div class="budget-layout">
+            <div class="card budget-form-card budget-form-compact">
+              <div class="card-title">Add Expense</div>
+              <form id="expense-form" class="stack-form">
+                <input type="text" name="title" placeholder="Expense title" required />
+                <input type="number" name="amount" placeholder="Amount" step="0.01" required />
+                <input type="text" name="category" placeholder="Category" required />
+                <button type="submit" class="primary-button">Add</button>
+              </form>
+            </div>
+            <div class="budget-grid">
+              <div class="card budget-chart-card square-card">
+                <div class="card-title">Spending Split</div>
+                <div id="budget-donut" class="budget-donut">
+                  <div class="budget-center">
+                    <span class="budget-total-label">Total</span>
+                    <strong id="budget-total">$0.00</strong>
+                  </div>
+                </div>
+                <div id="budget-legend" class="budget-legend"></div>
+              </div>
+              <div class="card budget-list-card square-card">
+                <div class="summary-row">
+                  <span>All Expenses</span>
+                  <strong id="budget-count">0 items</strong>
+                </div>
+                <div id="expense-list" class="list budget-list-scroll"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-planner" class="content-section">
+          <div class="section-header">
+            <h2>Monthly Planner</h2>
+            <p>Visualize your month and manage upcoming events.</p>
+          </div>
+          <div class="card planner-card">
+            <div class="planner-toolbar">
+              <div class="planner-month-nav">
+                <button class="icon-button" id="planner-prev" type="button" aria-label="Previous month">
+                  ‹
+                </button>
+                <div id="planner-month" class="planner-month">Month</div>
+                <button class="icon-button" id="planner-next" type="button" aria-label="Next month">
+                  ›
+                </button>
+              </div>
+              <button class="ghost-button planner-today" id="planner-today" type="button">Today</button>
+            </div>
+
+            <form id="event-form" class="inline-form planner-form">
+              <input type="text" name="title" placeholder="Event title" required />
+              <input type="date" name="date" required />
+              <button type="submit" class="primary-button">Add Event</button>
+            </form>
+
+            <div class="calendar">
+              <div class="calendar-weekdays">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+              </div>
+              <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>
