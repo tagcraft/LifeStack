@@ -44,7 +44,7 @@ npm install
 2. Configure environment variables in `server/.env`
 ```bash
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/lifestack
+MONGO_URI=mongodb+srv://LifeStack:LifeStack123@cluster0.ocq9qrk.mongodb.net/?appName=Cluster0
 JWT_SECRET=your_secret_here
 CLIENT_ORIGIN=http://localhost:5000
 ```
@@ -110,3 +110,4 @@ Events
 ## Notes
 - The server serves the frontend from `public/` at the root path.
 - If you host a separate frontend, set `CLIENT_ORIGIN` to its origin.
+
